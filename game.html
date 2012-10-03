@@ -43,20 +43,20 @@ function init() {
 	surface = document.getElementById( "view_surface" );
 	ctx = surface.getContext("2d");
 	color = "red";
-	user = fac.spawn( 40, 100 );
-	fac.spawn( 400, 100 );
-	fac.spawn( 300, 150 );
-	fac.spawn( 200, 100 );
-	fac.spawn( 700, 100 );
-	fac.spawn( 610, 501 );
-	fac.spawn( 307, 102 );
-	fac.spawn( 710, 102 );
-	fac.spawn( 455, 103 );
-	/*fac.spawn( 157, 241 );
-	fac.spawn( 252, 280 );
-	fac.spawn( 355, 241 );
-	fac.spawn( 153, 325 );
-	fac.spawn( 253, 533 );
+	user = fac.spawn( 100, 100 );
+	fac.spawn( 200, 200 );
+	fac.spawn( 300, 100 );
+	fac.spawn( 400, 200 );
+	fac.spawn( 500, 100 );
+	fac.spawn( 610, 200 );
+	fac.spawn( 707, 100 );
+	fac.spawn( 810, 200 );
+	fac.spawn( 860, 100 );
+	fac.spawn( 157, 241 );
+	//fac.spawn( 252, 280 );
+	//fac.spawn( 355, 241 );
+	//fac.spawn( 153, 325 );
+	/*fac.spawn( 253, 533 );
 	fac.spawn( 353, 143 );
 	fac.spawn( 753, 133 );
 	fac.spawn( 406, 102 );
@@ -253,27 +253,6 @@ function BVH( ) {
 			if( best_location ) {
 				best_location.insert( n );
 			}
-
-			/*
-			if( n.x < this.x + this.x_size &&
-			    n.x + n.x_size > this.x    &&
-			    n.y < this.y + this.y_size &&
-			    n.y + n.y_size > this.y ) {
-
-				var ret_val = false;
-				for( var i in this.children ) {
-					if( this.children[i] ) {
-						ret_val = this.children[i].insert( n );
-						if( ret_val == true ) {
-							break;
-						}
-					}
-				}
-
-				this.add( n );					
-				return true;
-			}
-			*/
 		}
 	}
 
@@ -325,8 +304,10 @@ function BVH( ) {
 	}
 
 	function split() {
-	
-		++bvh_height;	
+
+		if( this.depth == 0 ) {	
+			++bvh_height;	
+		}
 
 		var old_children = this.children.concat();
 		//this.children.splice(1, this.children.length );
@@ -349,8 +330,8 @@ function BVH( ) {
 			}
 		}
 
-		//this.remove_me = 1;
-		//this.ancestor.remove();
+		this.remove_me = 1;
+		this.ancestor.remove();
 
 		var worst_a = new BVH();
 		worst_a.fit( worst_pair.a );
